@@ -1,0 +1,29 @@
+{
+  "name": "moviez",
+  "productName": "Moviez",
+  "version": "1.0.0",
+  "description": "Movie search with newznab",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js",
+    "watch": "watchify app/app.js -t babelify -o public/js/bundle.js --debug --verbose"
+  },
+  "author": "Keagan Hilliard",
+  "license": "MIT",
+  "dependencies": {
+    "alt": "^0.18.6",
+    "babel-preset-es2015": "6.16.0",
+    "babel-preset-react": "6.16.0",
+    "babelify": "7.3.0",
+    "dotenv": "2.0.0",
+    "electron": "1.4.4",
+    "electron-reload": "1.0.2",
+    "material-ui": "0.16.1",
+    "moviedb": "0.2.7",
+    "nzbget-api": "0.0.3",
+    "react": "15.3.2",
+    "react-dom": "15.3.2",
+    "react-tap-event-plugin": "1.0.0",
+    "throttle-debounce": "1.0.1"
+  }
+}
