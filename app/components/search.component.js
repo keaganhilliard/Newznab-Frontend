@@ -1,50 +1,48 @@
 // Import React
 import React from 'react';
 
-import AutoComplete from 'material-ui/AutoComplete';
-import MenuItem from 'material-ui/MenuItem';
-import AppBar from 'material-ui/AppBar';
+import {Header, Segment, Search, Rail, Button} from 'semantic-ui-react';
 import {debounce} from 'throttle-debounce';
 
 // Create Search component class
-class Search extends React.Component{
-	createMenuItem(item) {
+class SearchBar extends React.Component{
+	createSearchResult(item) {
+		console.log(item);
 		return (
 			{
-				text: item.title,
-				value:
-					<MenuItem
-						primaryText = {item.title}
-						secondaryText = {new Date(item.release_date).toLocaleDateString()}
-					/>
+				"title": item.title,
+				"description": new Date(item.release_date).toLocaleDateString(),
+				"id": item.id, 
+				"image": 'http://image.tmdb.org/t/p/w92' + item.poster_path
 			}
 		)
 	}
 
 	render() {
-		const style = {
-			backgroundColor: `rgb(48, 48, 48)`
-		}
 		return (
-			<AppBar
-				title={
-					<AutoComplete
-						dataSource={
-							this.props.items.map(item => this.createMenuItem(item))
-						}
-						onNewRequest={this.props.handleSelect}
-						onUpdateInput={debounce(200, this.props.handleChange)}
-						fullWidth={true}
-						floatingLabelText={this.props.label}
-						filter={AutoComplete.noFilter}
-					/>
-				}
-				iconElementRight={this.props.menu}
-				style={style}
-				showMenuIconButton={false}
-			/>
+			<div>
+				<Rail attached internal position='left'>
+					<Segment inverted>
+						<Search
+							fluid
+							results={
+								this.props.items.map(item => this.createSearchResult(item))
+							}
+							onChange={this.props.handleSelect}
+							onSearchChange={debounce(200, this.props.handleChange)}
+							placeholder={this.props.label}
+							loading={this.props.loading}
+						/>
+					</Segment>
+				</Rail>
+				<Rail attached internal position='right'>
+					<Segment inverted>
+						<Button floated="right" inverted circular icon="settings" onClick={this.props.openSettings}/>
+					</Segment>
+				</Rail>
+			</div>
 		);
 	}
 }
 
-export default Search
+export default SearchBar

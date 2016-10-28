@@ -24,6 +24,7 @@
     "react": "15.3.2",
     "react-dom": "15.3.2",
     "react-tap-event-plugin": "1.0.0",
+    "semantic-ui-react": "^0.56.14",
     "throttle-debounce": "1.0.1"
   }
 }

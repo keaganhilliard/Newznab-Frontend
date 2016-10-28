@@ -1,7 +1,5 @@
 html {
-  font-family: 'Roboto', sans-serif;
-  background-color: rgb(48, 48, 48);
-  -webkit-font-smoothing: antialiased;
+  background-color: 'black';
 }
 
 ::-webkit-scrollbar {

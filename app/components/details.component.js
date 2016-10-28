@@ -1,22 +1,24 @@
 // Import React
 import React from 'react';
-import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import { Card, Icon, Image, Button } from 'semantic-ui-react'
 
 class Details extends React.Component {
 	// Render
 	render(){
 		return(
-			<Card>
-				<CardMedia overlay={<CardTitle title={this.props.title} subtitle={this.props.date} />}>
-      				<img src={this.props.artwork} />
-    			</CardMedia>
-				<CardText>
-					{this.props.description}
-				</CardText>
-				<CardActions>
-					{this.props.action}
-				</CardActions>
-			</Card>
+			<Card
+				fluid
+				image={this.props.artwork}
+				header={this.props.title} 
+				meta={this.props.date}
+				description={this.props.description}
+				extra={<Button
+					inverted
+					color='green'
+					onClick={this.props.action}
+					content="Search Newznab"
+				/>}
+			/>
 		)
 	}
 }

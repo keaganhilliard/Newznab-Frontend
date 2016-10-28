@@ -673,6 +673,10 @@ chokidar@^1.5.1:
   optionalDependencies:
     fsevents "^1.0.0"
 
+classnames@^2.1.5:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
+
 code-point-at@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.0.1.tgz#1104cd34f9b5b45d3eba88f1babc1924e1ce35fb"
@@ -1411,7 +1415,7 @@ lodash.throttle@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
 
-lodash@^4.2.0:
+lodash@^4.2.0, lodash@^4.6.1:
   version "4.16.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.16.4.tgz#01ce306b9bad1319f2a5528674f88297aeb70127"
 
@@ -1976,6 +1980,14 @@ rimraf@^2.2.8, rimraf@~2.5.0, rimraf@~2.5.1, rimraf@2:
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.5.4.tgz#96800093cbf1a0c86bd95b4625467535c29dfa04"
   dependencies:
     glob "^7.0.5"
+
+semantic-ui-react:
+  version "0.56.14"
+  resolved "https://registry.yarnpkg.com/semantic-ui-react/-/semantic-ui-react-0.56.14.tgz#505177bf22aa2a82d55b828e60002e3c7bcb1770"
+  dependencies:
+    classnames "^2.1.5"
+    debug "^2.2.0"
+    lodash "^4.6.1"
 
 semver@^5.3.0, semver@~5.3.0, "semver@2 || 3 || 4 || 5":
   version "5.3.0"

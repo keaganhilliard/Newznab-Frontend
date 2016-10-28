@@ -1,15 +1,16 @@
 import React from 'react';
-import TextField from 'material-ui/TextField';
-
+import {Input} from 'semantic-ui-react'
 class SettingsField extends React.Component{
 	render() {
+		var type = 'text'
+		if (this.props.type) type = this.props.type;
 		return (
-			<TextField
-				floatingLabelText={this.props.label}
+			<Input
+				fluid
+				label={this.props.label}
 				value={this.props.settings[this.props.fieldName]}
 				onChange={(e) => this.props.handleSettings(e, this.props.fieldName)}
-				fullWidth={true}
-				type={this.props.type}
+				type={type} 
 			/>
 		)
 	}
