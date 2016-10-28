@@ -6,7 +6,7 @@ import ResultList from '../components/resultList.component';
 import Menu from '../components/menu.component';
 import Settings from '../components/settings.component';
 import NZBGet from 'nzbget-api';
-import { Progress, Segment, Button } from 'semantic-ui-react'
+import { Progress, Segment, Button, Container } from 'semantic-ui-react'
 var MovieDB = require('moviedb');
 
 const {ipcRenderer} = window.require('electron');
@@ -207,6 +207,14 @@ class AppContainer extends React.Component {
 			/>;
 		}
 
+		var nzbTable;
+		if (this.state.nzbItems && this.state.nzbItems.length > 0) {
+			nzbTable = <ResultList
+				handleRowClick = {this.handleRowClick.bind(this)}
+				items = {this.state.nzbItems}
+			/>;
+		}
+
 		var inProgress;
 		if (this.state.inProgress)
 			inProgress = <Progress percent={100} indicating />;
@@ -215,7 +223,7 @@ class AppContainer extends React.Component {
 			float: 'right'
 		}
         return (
-			<Segment style={{height: '100%', width:'100%'}} >
+			<Container >
 				<Settings 
 					settings={this.state.settings}
 					handleSettings={this.handleSettings.bind(this)}
@@ -231,15 +239,10 @@ class AppContainer extends React.Component {
 					loading={this.state.searching}
 					openSettings={this.handleOpenSettings.bind(this)}
 				/>
-				<br/>
-				<br/>
 				{details}
 				{inProgress}
-				<ResultList
-					handleRowClick = {this.handleRowClick.bind(this)}
-					items = {this.state.nzbItems}
-				/>
-			</Segment>
+				{nzbTable}
+			</Container>
         );
     }
 }
