@@ -1,13 +1,12 @@
 import React from 'react';
-import Search from '../components/search.component';
+import SearchBar from '../components/search.component';
 import Details from '../components/details.component';
 import NzbSearch from '../components/nzbsearch.component';
 import ResultList from '../components/resultList.component';
 import Menu from '../components/menu.component';
 import Settings from '../components/settings.component';
 import NZBGet from 'nzbget-api';
-import FlatButton from 'material-ui/FlatButton';
-import LinearProgress from 'material-ui/LinearProgress';
+import { Progress, Segment, Button } from 'semantic-ui-react'
 var MovieDB = require('moviedb');
 
 const {ipcRenderer} = window.require('electron');
@@ -30,6 +29,7 @@ class AppContainer extends React.Component {
 			},
 			movie: {backdrop_path: '', title: '', release_date: '', overview: '', id: ''},
 			inProgress: false,
+			searching: false,
 			openSettings: false,
 			movies: [],
 			nzbItems: []
@@ -70,6 +70,13 @@ class AppContainer extends React.Component {
 				this.mdb = MovieDB(this.state.settings.tmdb_api_key);
 			else	
 				this.setState({openSettings: true});
+			this.mdb.discoverMovie((err, res) => {
+				console.log(res);
+				var num = Math.floor(Math.random() * res.results.length);
+				console.log(res.results[num]);
+				this.setState({movie: res.results[num]})
+				this.handleSelect(null, res.results[num]);
+			});
 		});
 		ipcRenderer.send('getEnv');
 	}
@@ -77,21 +84,21 @@ class AppContainer extends React.Component {
 	componentDidMount() {
 	}
 
-	handleSelect(value, item) {
-		let movie = this.state.movies[item];
-		this.mdb.movieInfo({id: movie.id},
+	handleSelect(e, value) {
+		this.mdb.movieInfo({id: value.id},
 			(err, res) => this.setState({movie: res})
 		);
 		this.setState({nzbItems: []});
 	}
 
-	handleChange(value) {
+	handleChange(e, value) {
 		let self = this;
 		console.log('changed: ' + value);
+		this.setState({searching: true})
 		this.mdb.searchMovie({ query: value},
 			(err, res) => {
 				console.log(res);
-				this.setState({movies: res.results});
+				this.setState({movies: res.results, searching: false});
 				console.log(this.state);
 			}
 		);
@@ -99,6 +106,7 @@ class AppContainer extends React.Component {
 	}
 
 	handleClick() {
+		console.log('clicked');
 		var imdb = this.state.movie.imdb_id.replace('tt','');
 		this.setState({inProgress: true})
 		console.log(`https://${this.state.settings.newznab_endpoint}?t=movie&apikey=${this.state.settings.newznab_api_key}&imdbid=${imdb}&limit=100&o=json`);
@@ -190,57 +198,48 @@ class AppContainer extends React.Component {
 		var details;
 		var nzbs;
 		if (this.state.movie.imdb_id) {
-			details = <Details
-				title = {this.state.movie.title}
-				date = {this.state.movie.release_date ? new Date(this.state.movie.release_date).toLocaleDateString() : ''}
-				description = {this.state.movie.overview}
-				artwork = {this.artwork(this.state.movie.backdrop_path)}
-				action = {<NzbSearch handleClick = {this.handleClick.bind(this)} />}
-			/>;
-		}
-
-		var nzbTable;
-		if (this.state.nzbItems && this.state.nzbItems.length > 0) {
-			nzbTable = <ResultList
-				handleRowClick = {this.handleRowClick.bind(this)}
-				items = {this.state.nzbItems}
+			details=<Details
+				title={this.state.movie.title}
+				date={this.state.movie.release_date ? new Date(this.state.movie.release_date).toLocaleDateString() : ''}
+				description={this.state.movie.overview}
+				artwork={this.artwork(this.state.movie.backdrop_path)}
+				action={this.handleClick.bind(this)}
 			/>;
 		}
 
 		var inProgress;
 		if (this.state.inProgress)
-			inProgress = <LinearProgress mode="indeterminate" />;
+			inProgress = <Progress percent={100} indicating />;
 
 		var float = {
 			float: 'right'
 		}
         return (
-	        <div>
-				<Settings
-					actions={[
-						<FlatButton label="Cancel" primary={true} onTouchTap={this.handleCloseSettings.bind(this)}/>,
-						<FlatButton label="Save" primary={false} onTouchTap={this.handleSaveSettings.bind(this)}/>
-					]}
-					open={this.state.openSettings}
-					handleSettings={this.handleSettings.bind(this)}
+			<Segment style={{height: '100%', width:'100%'}} inverted>
+				<Settings 
 					settings={this.state.settings}
+					handleSettings={this.handleSettings.bind(this)}
+					handleCloseSettings={this.handleCloseSettings.bind(this)}
+					handleSaveSettings={this.handleSaveSettings.bind(this)}
+					open={this.state.openSettings}
 				/>
-				<Search
+				<SearchBar
 					label="Search Movies..."
 					items={this.state.movies}
 					handleSelect={this.handleSelect.bind(this)}
 					handleChange={this.handleChange.bind(this)}
-					menu={<Menu action={this.handleOpenSettings.bind(this)}/>}
+					loading={this.state.searching}
+					openSettings={this.handleOpenSettings.bind(this)}
 				/>
 				<br/>
+				<br/>
 				{details}
-				<div>
-					<center>
-						{inProgress}
-					</center>
-				</div>
-				{nzbTable}
-			</div>
+				{inProgress}
+				<ResultList
+					handleRowClick = {this.handleRowClick.bind(this)}
+					items = {this.state.nzbItems}
+				/>
+			</Segment>
         );
     }
 }

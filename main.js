@@ -17,7 +17,7 @@ let mainWindow
 
 function createWindow () {
     // Create the browser window.
-    mainWindow = new BrowserWindow({width: 1000, height: 900, title: 'Moviez', icon: iconPath})
+    mainWindow = new BrowserWindow({width: 900, height: 760, title: 'Moviez', icon: iconPath})
 
     mainWindow.setMenu(null);
 

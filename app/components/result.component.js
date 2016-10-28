@@ -1,8 +1,6 @@
 // Import React
 import React from 'react';
-import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
-import FontIcon from 'material-ui/FontIcon';
+import { Button, Card, Image } from 'semantic-ui-react'
 
 // Player component class
 class Result extends React.Component {
@@ -20,19 +18,6 @@ class Result extends React.Component {
 	}
 
 	render() {
-		var thumbsUp;
-		this.props.item.attr.forEach(
-			(attr) => {
-				if (attr['@attributes'] && attr['@attributes']['name'] === 'oz_up_votes') {
-					thumbsUp =
-						<div>
-							<br/>
-							<i className="material-icons">thumb_up</i>
-							{': ' + attr['@attributes']['value']}
-						</div>;
-				}
-			}
-		);
 		var size = this.props.item.enclosure['@attributes']['length'] / Math.pow(2, 30);
 		var date1 = new Date(this.props.item.pubDate);
 		var date2 = new Date();
@@ -42,24 +27,20 @@ class Result extends React.Component {
 			wordWrap: 'break-word'
 	  	};
 		return(
-			<Card>
-				<CardTitle
-					style={wordWrap}
-					title={this.props.item.title}
-					subtitle={size.toFixed(3) + ' GB'}
-				/>
-				<CardText>
-					Age: {diffDays}
-					{thumbsUp}
-				</CardText>
-				<CardActions>
-					<FlatButton
-						onTouchTap={() => this.props.handleClick(this.props.item)}
-						label="Send to NZBGet"
-						primary={true}
+			<Card
+				fluid
+				header={this.props.item.title}
+				meta={size.toFixed(3) + ' GB'}
+				description={"Age: " + diffDays}
+				extra={
+					<Button
+						onClick={() => this.props.handleClick(this.props.item)}
+						content="Send to NZBGet"
+						color="blue"
+						inverted
 					/>
-				</CardActions>
-			</Card>
+				}
+			/>
 		)
 	}
 }

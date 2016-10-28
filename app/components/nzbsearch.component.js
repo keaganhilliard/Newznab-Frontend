@@ -1,13 +1,14 @@
 // Import React
 import React from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
-// Player component class
+import Button from 'semantic-ui-react';
 class NzbSearch extends React.Component {
 	render(){
 		return(
-			<RaisedButton
-				onTouchTap={this.props.handleClick}
-				label="Search Newznab"
+			<Button
+				inverted
+				color='green'
+				onClick={this.props.handleClick}
+				content="Search Newznab"
 			/>
 		)
 	}
