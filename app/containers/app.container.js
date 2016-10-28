@@ -215,7 +215,7 @@ class AppContainer extends React.Component {
 			float: 'right'
 		}
         return (
-			<Segment style={{height: '100%', width:'100%'}} inverted>
+			<Segment style={{height: '100%', width:'100%'}} >
 				<Settings 
 					settings={this.state.settings}
 					handleSettings={this.handleSettings.bind(this)}

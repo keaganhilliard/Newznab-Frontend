@@ -22,7 +22,7 @@ class SearchBar extends React.Component{
 		return (
 			<div>
 				<Rail attached internal position='left'>
-					<Segment inverted>
+					<Segment >
 						<Search
 							fluid
 							results={
@@ -36,8 +36,8 @@ class SearchBar extends React.Component{
 					</Segment>
 				</Rail>
 				<Rail attached internal position='right'>
-					<Segment inverted>
-						<Button floated="right" inverted circular icon="settings" onClick={this.props.openSettings}/>
+					<Segment >
+						<Button floated="right"  circular icon="settings" onClick={this.props.openSettings}/>
 					</Segment>
 				</Rail>
 			</div>

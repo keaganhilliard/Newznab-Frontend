@@ -13,7 +13,7 @@ class Details extends React.Component {
 				meta={this.props.date}
 				description={this.props.description}
 				extra={<Button
-					inverted
+					
 					color='green'
 					onClick={this.props.action}
 					content="Search Newznab"
