@@ -6,7 +6,7 @@ import ResultList from '../components/resultList.component';
 import Menu from '../components/menu.component';
 import Settings from '../components/settings.component';
 import NZBGet from 'nzbget-api';
-import { Progress, Segment, Button, Container } from 'semantic-ui-react'
+import { Progress, Button, Container } from 'semantic-ui-react'
 var MovieDB = require('moviedb');
 
 const {ipcRenderer} = window.require('electron');
@@ -223,7 +223,7 @@ class AppContainer extends React.Component {
 			float: 'right'
 		}
         return (
-			<Container >
+			<Container>
 				<Settings 
 					settings={this.state.settings}
 					handleSettings={this.handleSettings.bind(this)}

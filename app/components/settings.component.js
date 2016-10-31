@@ -65,12 +65,15 @@ class Settings extends Component{
 						/>
 					</Modal.Content>
 					<Modal.Actions>
-						<Button color='black' onClick={this.props.handleCloseSettings}>
-							Cancel
-						</Button>
-						<Button positive icon labelPosition='right' onClick={this.props.handleSaveSettings}>
-							Save <Icon name='checkmark' />
-						</Button>
+						<Button.Group>
+							<Button negative onClick={this.props.handleCloseSettings}>
+								Cancel
+							</Button>
+							<Button.Or/>
+							<Button positive icon labelPosition='right' onClick={this.props.handleSaveSettings}>
+								Save <Icon name='checkmark' />
+							</Button>
+						</Button.Group>
 					</Modal.Actions>
 				</Modal>
 			</div>
