@@ -37,7 +37,6 @@ class Result extends React.Component {
 						onClick={() => this.props.handleClick(this.props.item)}
 						content="Send to NZBGet"
 						color="blue"
-						
 					/>
 				}
 			/>

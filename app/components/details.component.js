@@ -12,12 +12,13 @@ class Details extends React.Component {
 				header={this.props.title} 
 				meta={this.props.date}
 				description={this.props.description}
-				extra={<Button
-					
-					color='green'
-					onClick={this.props.action}
-					content="Search Newznab"
-				/>}
+				extra={
+					<Button
+						color='green'
+						onClick={this.props.action}
+						content="Search Newznab"
+					/>
+				}
 			/>
 		)
 	}

@@ -5,7 +5,6 @@ class NzbSearch extends React.Component {
 	render(){
 		return(
 			<Button
-				
 				color='green'
 				onClick={this.props.handleClick}
 				content="Search Newznab"
