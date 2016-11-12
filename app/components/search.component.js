@@ -13,7 +13,8 @@ class SearchBar extends React.Component{
 				"title": item.title,
 				"description": new Date(item.release_date).toLocaleDateString(),
 				"id": item.id, 
-				"image": 'http://image.tmdb.org/t/p/w92' + item.poster_path
+				"image": 'http://image.tmdb.org/t/p/w92' + item.poster_path, 
+				"key": item.id
 			}
 		)
 	}
