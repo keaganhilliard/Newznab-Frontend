@@ -27,7 +27,7 @@ class AppContainer extends React.Component {
 				nzbget_user: '',
 				nzbget_password: ''
 			},
-			movie: {backdrop_path: '', title: '', release_date: '', overview: '', id: ''},
+			movie: {backdrop_path: '', title: '', release_date: '', overview: '', id: '', vote_average: ''},
 			inProgress: false,
 			searching: false,
 			openSettings: false,
@@ -204,6 +204,7 @@ class AppContainer extends React.Component {
 				description={this.state.movie.overview}
 				artwork={this.artwork(this.state.movie.backdrop_path)}
 				action={this.handleClick.bind(this)}
+				rating={this.state.movie.vote_average}
 			/>;
 		}
 
