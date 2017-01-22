@@ -19,12 +19,15 @@
     "electron": "1.4.4",
     "electron-reload": "1.0.2",
     "material-ui": "0.16.1",
-    "moviedb": "0.2.7",
     "nzbget-api": "0.0.3",
     "react": "15.3.2",
     "react-dom": "15.3.2",
     "react-tap-event-plugin": "1.0.0",
     "semantic-ui-react": "^0.56.14",
+    "themoviedb-javascript-library": "^1.0.0",
     "throttle-debounce": "1.0.1"
+  },
+  "devDependencies": {
+    "electron": "^1.4.4"
   }
 }

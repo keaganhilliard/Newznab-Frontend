@@ -6,8 +6,8 @@ import ResultList from '../components/resultList.component';
 import Menu from '../components/menu.component';
 import Settings from '../components/settings.component';
 import NZBGet from 'nzbget-api';
-import { Progress, Button, Container } from 'semantic-ui-react'
-var MovieDB = require('moviedb');
+import { Progress, Button, Container } from 'semantic-ui-react';
+const theMovieDb = require('themoviedb-javascript-library');
 
 const {ipcRenderer} = window.require('electron');
 
@@ -67,16 +67,17 @@ class AppContainer extends React.Component {
 				this.nzbGet = new NZBGet(nzbGetOptions);
 			}
 			if (this.state.settings && this.state.settings.tmdb_api_key)
-				this.mdb = MovieDB(this.state.settings.tmdb_api_key);
+				theMovieDb.common.api_key = this.state.settings.tmdb_api_key;
 			else	
 				this.setState({openSettings: true});
-			this.mdb.discoverMovie((err, res) => {
+			theMovieDb.movies.getPopular({}, (res) => {
+				res = JSON.parse(res);
 				console.log(res);
 				var num = Math.floor(Math.random() * res.results.length);
 				console.log(res.results[num]);
 				this.setState({movie: res.results[num]})
 				this.handleSelect(null, res.results[num]);
-			});
+			}, (err) => console.log(err));
 		});
 		ipcRenderer.send('getEnv');
 	}
@@ -85,8 +86,11 @@ class AppContainer extends React.Component {
 	}
 
 	handleSelect(e, value) {
-		this.mdb.movieInfo({id: value.id},
-			(err, res) => this.setState({movie: res})
+		theMovieDb.movies.getById({id: value.id},
+			(res) => {
+				res = JSON.parse(res);
+				this.setState({movie: res});
+			}, (err) => console.log(err)
 		);
 		this.setState({nzbItems: []});
 	}
@@ -95,12 +99,13 @@ class AppContainer extends React.Component {
 		let self = this;
 		console.log('changed: ' + value);
 		this.setState({searching: true})
-		this.mdb.searchMovie({ query: value},
-			(err, res) => {
+		theMovieDb.search.getMovie({ query: value},
+			(res) => {
+				res = JSON.parse(res);
 				console.log(res);
 				this.setState({movies: res.results, searching: false});
 				console.log(this.state);
-			}
+			}, (err) => console.log(err)
 		);
 		this.setState({nzbItems: []});
 	}
@@ -175,7 +180,7 @@ class AppContainer extends React.Component {
 		}
 		console.log(nzbGetOptions);
 		this.nzbGet = new NZBGet(nzbGetOptions);
-		this.mdb = MovieDB(this.state.settings.tmdb_api_key);
+		theMovieDb.common.api_key = this.state.settings.tmdb_api_key;
 	}
 
 	handleSettings(e, setting) {
